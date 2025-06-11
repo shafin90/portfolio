@@ -21,6 +21,12 @@
   font-weight: 700;
   color: var(--text-color);
   text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navbar-logo:hover,
+.navbar-logo.active {
+  color: var(--primary-color);
 }
 
 .navbar-menu {
@@ -34,9 +40,28 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
+  position: relative;
+  padding: 0.5rem 0;
 }
 
-.navbar-link:hover {
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.navbar-link:hover::after,
+.navbar-link.active::after {
+  width: 100%;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
   color: var(--primary-color);
 }
 
