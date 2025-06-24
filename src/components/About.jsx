@@ -102,7 +102,7 @@ const careerJourneyData = [
     title: 'Vulnapp (Canada, Remote)',
     description: (
       <>
-        5 months as Backend Developer (remote).<br />
+        9 months as Backend Developer (remote).<br />
         <a href="https://www.linkedin.com/company/vulnapp/" target="_blank" rel="noopener noreferrer" className="career-company-link">
           View Company
         </a>
