@@ -1,11 +1,11 @@
-import './Projects.css'
-import { motion } from 'framer-motion'
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
-import { useState } from 'react'
+import './Projects.css';
+import { motion } from 'framer-motion';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { useState } from 'react';
 
-const ProjectCard = ({ title, description, tech, github, live, image }) => {
+const ProjectCard = ({ title, description, tech, github, live, image, openModal }) => {
   return (
-    <motion.div 
+    <motion.div
       className="project-card"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -17,24 +17,29 @@ const ProjectCard = ({ title, description, tech, github, live, image }) => {
         <img src={image} alt={title} />
         <div className="project-overlay">
           <div className="project-links">
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-link"
-              aria-label="GitHub Repository"
-            >
-              <FaGithub />
-            </a>
-            <a
-              href={live}
-              target="_blank"
-              rel="noopener noreferrer"
+            {github === "Production" ? (
+              <span className="confidential-text">
+                Production-grade Application. Code is confidential.
+              </span>
+            ) : (
+              <a
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-link"
+                aria-label="GitHub Repository"
+              >
+                <FaGithub />
+              </a>
+            )}
+
+            <button
               className="project-link"
               aria-label="Live Demo"
+              onClick={() => openModal(live)}
             >
               <FaExternalLinkAlt />
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -48,62 +53,59 @@ const ProjectCard = ({ title, description, tech, github, live, image }) => {
         </div>
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
 const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState('all')
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalVideo, setModalVideo] = useState("");
 
   const categories = [
     { id: 'all', name: 'All Projects' },
     { id: 'mobile', name: 'Mobile Apps' },
     { id: 'frontend', name: 'Frontend' },
     { id: 'fullstack', name: 'Full Stack' },
-    { id: 'backend', name: 'Backend' }
-  ]
+  ];
 
   const projects = [
     {
-      title: "E-Commerce Mobile App",
-      description: "A cross-platform mobile application for e-commerce with real-time updates, push notifications, and secure payments.",
-      tech: ["React Native", "Firebase", "Redux", "Stripe"],
-      github: "https://github.com/yourusername/ecommerce-mobile",
-      live: "https://ecommerce-mobile-demo.com",
-      image: "/projects/ecommerce-mobile.jpg",
+      title: "Govihari Mobile Apps",
+      description: "Mobile ticket booking system for Godavari river with scalable backend. Built with React Native, React.js, and Node.js. Handles over 2M users monthly.",
+      tech: ["React Native", "React", "Firebase", "MongoDB", "Express", "Node.js", "Razorpay","Docker","Digital Ocean"],
+      github: "Production",
+      live: "https://www.youtube.com/watch?v=zl4e_pjz3S8",
+      image: "https://img.youtube.com/vi/zl4e_pjz3S8/maxresdefault.jpg",
       category: "mobile"
     },
     {
-      title: "Modern Dashboard UI",
-      description: "A beautiful and responsive admin dashboard with dark mode, customizable widgets, and real-time data visualization.",
-      tech: ["React", "Tailwind CSS", "Chart.js", "Redux"],
-      github: "https://github.com/yourusername/dashboard-ui",
-      live: "https://dashboard-demo.com",
-      image: "/projects/dashboard.jpg",
+      title: "Hardel Restaurant",
+      description: "Crafted a modern, responsive UI for Hardel using React, Tailwind, and Vercel. Fully responsive and optimized for performance.",
+      tech: ["React", "Tailwind CSS", "Framer Motion", "Locomotive Scroll"],
+      github: "Production",
+      live: "https://www.youtube.com/watch?v=Mipm-pQWfrg",
+      image: "https://img.youtube.com/vi/Mipm-pQWfrg/maxresdefault.jpg",
       category: "frontend"
     },
     {
-      title: "Task Management System",
-      description: "A full-stack task management application with real-time collaboration, team features, and progress tracking.",
-      tech: ["Next.js", "Node.js", "MongoDB", "Socket.io"],
-      github: "https://github.com/yourusername/task-manager",
-      live: "https://task-manager-demo.com",
-      image: "/projects/task-manager.jpg",
+      title: "Bria Unisex Salon",
+      description: "Full-stack Salon Management System with appointment scheduling, responsive UI, and admin dashboard. Built with React, Node.js, and MongoDB.",
+      tech: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
+      github: "Production",
+      live: "https://www.youtube.com/watch?v=f-ALrqp4XYI",
+      image: "https://img.youtube.com/vi/f-ALrqp4XYI/maxresdefault.jpg",
       category: "fullstack"
-    },
-    {
-      title: "API Gateway Service",
-      description: "A robust backend service with authentication, rate limiting, request validation, and API documentation.",
-      tech: ["Node.js", "Express", "Redis", "JWT"],
-      github: "https://github.com/yourusername/api-gateway",
-      live: "https://api-gateway-docs.com",
-      image: "/projects/api-gateway.jpg",
-      category: "backend"
     }
-  ]
+  ];
 
-  const filteredProjects = activeCategory === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === activeCategory)
+  const filteredProjects = activeCategory === 'all'
+    ? projects
+    : projects.filter(project => project.category === activeCategory);
+
+  const openModal = (url) => {
+    setModalVideo(url);
+    setModalOpen(true);
+  };
 
   return (
     <section className="projects section" id="projects">
@@ -121,7 +123,7 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="project-categories"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -141,12 +143,37 @@ const Projects = () => {
 
         <div className="projects-grid">
           {filteredProjects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
+            <ProjectCard
+              key={index}
+              {...project}
+              openModal={openModal}
+            />
           ))}
         </div>
       </div>
-    </section>
-  )
-}
 
-export default Projects 
+      {modalOpen && (
+        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <iframe
+              width="560"
+              height="315"
+              src={
+                modalVideo.includes("youtube.com")
+                  ? modalVideo.replace("watch?v=", "embed/")
+                  : modalVideo
+              }
+              title="Demo Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            <button className="close-modal" onClick={() => setModalOpen(false)}>X</button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+};
+
+export default Projects;
