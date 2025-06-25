@@ -98,7 +98,7 @@ const Projects = () => {
     },
     {
       title: "Bria Unisex Salon",
-      description: "Full-stack Salon Management System with appointment scheduling, responsive UI, and admin dashboard. Built with React, Node.js, and MongoDB.",
+      description: "Full-stack Salon Management System with appointment scheduling, responsive UI, and admin dashboard. Built with React, Node.js, and MongoDB. Admin Email: admin@admin.com, Password: 12345678",
       tech: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
       github: "Production",
       live: "https://www.youtube.com/watch?v=f-ALrqp4XYI",
