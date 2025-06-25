@@ -1,6 +1,7 @@
 import './About.css'
 import { motion } from 'framer-motion'
 import { FaReact, FaVuejs, FaAngular, FaNodeJs, FaGit, FaDocker, FaAward, FaBriefcase, FaUserTie, FaProjectDiagram, FaGlobe } from 'react-icons/fa'
+import { FaMobileScreenButton } from "react-icons/fa6";
 import { SiNextdotjs, SiNuxtdotjs, SiNestjs, SiExpress, SiFirebase, SiMongodb, SiPostgresql } from 'react-icons/si'
 
 const skills = [
@@ -251,6 +252,11 @@ const About = () => {
             icon={FaDocker}
             title="DevOps & Tools"
             text="Experience with Docker, CI/CD pipelines, and modern development tools."
+          />
+          <Feature
+            icon={FaMobileScreenButton}
+            title="Mobile App Development"
+            text="Building cross-platform mobile applications using React Native Expo and React Native Cli."
           />
         </div>
       </div>
