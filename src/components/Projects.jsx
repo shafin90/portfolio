@@ -1,9 +1,11 @@
 import './Projects.css';
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { IoLinkSharp } from "react-icons/io5";
 import { useState } from 'react';
+import { li } from 'framer-motion/client';
 
-const ProjectCard = ({ title, description, tech, github, live, image, openModal }) => {
+const ProjectCard = ({ title, description, tech, github, live, image, openModal, liveURL }) => {
   return (
     <motion.div
       className="project-card"
@@ -40,6 +42,11 @@ const ProjectCard = ({ title, description, tech, github, live, image, openModal 
             >
               <FaExternalLinkAlt />
             </button>
+            {liveURL && (
+              <a href={liveURL} className="project-link">
+                <IoLinkSharp />
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -72,11 +79,12 @@ const Projects = () => {
     {
       title: "Govihari Mobile Apps",
       description: "Mobile ticket booking system for Godavari river with scalable backend. Built with React Native, React.js, and Node.js. Handles over 2M users monthly.",
-      tech: ["React Native", "React", "Firebase", "MongoDB", "Express", "Node.js", "Razorpay","Docker","Digital Ocean"],
+      tech: ["React Native", "React", "Firebase", "MongoDB", "Express", "Node.js", "Razorpay", "Docker", "Digital Ocean"],
       github: "Production",
       live: "https://www.youtube.com/watch?v=zl4e_pjz3S8",
       image: "https://img.youtube.com/vi/zl4e_pjz3S8/maxresdefault.jpg",
-      category: "mobile"
+      category: "mobile",
+      liveURL: null
     },
     {
       title: "Hardel Restaurant",
@@ -85,7 +93,8 @@ const Projects = () => {
       github: "Production",
       live: "https://www.youtube.com/watch?v=Mipm-pQWfrg",
       image: "https://img.youtube.com/vi/Mipm-pQWfrg/maxresdefault.jpg",
-      category: "frontend"
+      category: "frontend",
+      liveURL: "https://hardel.vercel.app"
     },
     {
       title: "Bria Unisex Salon",
@@ -94,7 +103,8 @@ const Projects = () => {
       github: "Production",
       live: "https://www.youtube.com/watch?v=f-ALrqp4XYI",
       image: "https://img.youtube.com/vi/f-ALrqp4XYI/maxresdefault.jpg",
-      category: "fullstack"
+      category: "fullstack",
+      liveURL: "https://bria-omega.vercel.app"
     }
   ];
 
@@ -144,6 +154,7 @@ const Projects = () => {
         <div className="projects-grid">
           {filteredProjects.map((project, index) => (
             <ProjectCard
+              liveURL={project.liveURL}
               key={index}
               {...project}
               openModal={openModal}
