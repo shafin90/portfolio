@@ -74,7 +74,7 @@ const SkillItem = ({ skill }) => {
 
 const careerJourneyData = [
   {
-    title: 'Programming Hero Black Belt Developer.',
+    title: 'Programming Hero Black Belt Developer..',
     description: (
       <>
         SCIC Graduate & Black Belt Awardee. Successfully completed all competitive phases and earned the Black Belt distinction. This prestigious achievement represents excellence in web development, problem-solving, and technical skills through rigorous training and competitive assessments.<br />
