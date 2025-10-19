@@ -42,11 +42,25 @@
 }
 
 :root {
-  --primary-color: #3182ce;
-  --text-color: #2d3748;
-  --bg-color: #f7fafc;
-  --card-bg: #ffffff;
-  --border-color: #e2e8f0;
+  --primary-color: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --accent-color: #06b6d4;
+  --neon-blue: #00d4ff;
+  --neon-purple: #bf5af2;
+  --neon-green: #00ff88;
+  --neon-pink: #ff0080;
+  --neon-orange: #ff6b35;
+  --text-color: #ffffff;
+  --text-secondary: #a1a1aa;
+  --bg-color: #0a0a0a;
+  --card-bg: rgba(17, 17, 17, 0.9);
+  --border-color: #27272a;
+  --code-bg: #1a1a1a;
+  --terminal-green: #00ff00;
+  --purple-gradient: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  --neon-gradient: linear-gradient(135deg, #00d4ff, #bf5af2, #00ff88);
+  --glow-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  --neon-glow: 0 0 30px rgba(0, 212, 255, 0.5);
 }
 
 * {
@@ -56,10 +70,34 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Fira Code', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: var(--text-color);
   background-color: var(--bg-color);
-  line-height: 1.5;
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-left: 110px;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(191, 90, 242, 0.05) 0%, transparent 50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  body {
+    padding-left: 0;
+  }
 }
 
 .app {
@@ -76,6 +114,8 @@ body {
 
 .section {
   padding: 5rem 0;
+  background: var(--bg-color);
+  position: relative;
 }
 
 .section-title {
@@ -84,12 +124,16 @@ body {
   font-weight: 700;
   text-align: center;
   margin-bottom: 2rem;
+  background: var(--purple-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .section-subtitle {
   font-size: 1.25rem;
   text-align: center;
-  color: #718096;
+  color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto 3rem;
 }
@@ -106,37 +150,61 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--primary-color);
+  background: var(--purple-gradient);
   color: white;
+  border: none;
+  box-shadow: var(--glow-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
 }
 
 .btn-primary:hover {
-  background-color: #2c5282;
   transform: translateY(-2px);
+  box-shadow: var(--neon-glow);
 }
 
 .btn-outline {
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
-  background: transparent;
+  background: rgba(102, 126, 234, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .btn-outline:hover {
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   color: white;
   transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
 .card {
-  background-color: var(--card-bg);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border-color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
@@ -163,8 +231,23 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 section:nth-child(even) {
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+/* Add subtle code pattern background */
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="code-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="%23667eea" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23code-pattern)"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
 }

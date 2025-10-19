@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { FaHome, FaUser, FaProjectDiagram, FaBriefcase, FaEnvelope, FaBars, FaTimes, FaGithub, FaLinkedin, FaHandshake } from 'react-icons/fa'
 import './Navbar.css'
 
 const Navbar = () => {
@@ -15,8 +16,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'career', 'contact']
-      const scrollPosition = window.scrollY + 100 // Adding offset for better detection
+      const sections = ['hero', 'about', 'services', 'projects', 'career', 'contact']
+      const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
         const element = document.getElementById(section)
@@ -34,56 +35,69 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const navItems = [
+    { id: 'hero', label: 'Home', icon: FaHome },
+    { id: 'about', label: 'About', icon: FaUser },
+    { id: 'services', label: 'Services', icon: FaHandshake },
+    { id: 'projects', label: 'Projects', icon: FaProjectDiagram },
+    { id: 'career', label: 'Career', icon: FaBriefcase },
+    { id: 'contact', label: 'Contact', icon: FaEnvelope }
+  ]
+
   return (
-    <nav className="navbar">
-      <div className="container navbar-container">
-        <a 
-          href="#" 
-          className={`navbar-logo ${activeSection === 'hero' ? 'active' : ''}`} 
-          onClick={() => scrollToSection('hero')}
-        >
-          Shafin's Framework
-        </a>
+    <>
+      {/* Mobile Menu Button */}
+      <button 
+        className="mobile-menu-btn"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        {isMenuOpen ? <FaTimes /> : <FaBars />}
+      </button>
 
-        <button 
-          className="navbar-toggle"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <span className="navbar-toggle-icon"></span>
-        </button>
+      {/* Floating Side Navbar */}
+      <nav className={`floating-nav ${isMenuOpen ? 'open' : ''}`}>
+        {/* Logo Section */}
+        <div className="nav-logo-section">
+          <div className="nav-logo">
+            <span className="logo-initial">S</span>
+          </div>
+        </div>
 
-        <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-          <a 
-            href="#about" 
-            className={`navbar-link ${activeSection === 'about' ? 'active' : ''}`} 
-            onClick={() => scrollToSection('about')}
-          >
-            About
+        {/* Navigation Items */}
+        <div className="nav-items">
+          {navItems.map((item) => {
+            const Icon = item.icon
+            return (
+              <button
+                key={item.id}
+                className={`nav-item ${activeSection === item.id ? 'active' : ''}`}
+                onClick={() => scrollToSection(item.id)}
+                title={item.label}
+              >
+                <div className="nav-icon">
+                  <Icon />
+                </div>
+                <div className="nav-tooltip">{item.label}</div>
+                <div className="nav-indicator"></div>
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Social Links */}
+        <div className="nav-social-section">
+          <a href="https://github.com/shafin90" target="_blank" rel="noopener noreferrer" className="social-item" title="GitHub">
+            <FaGithub />
           </a>
-          <a 
-            href="#projects" 
-            className={`navbar-link ${activeSection === 'projects' ? 'active' : ''}`} 
-            onClick={() => scrollToSection('projects')}
-          >
-            Projects
-          </a>
-          <a 
-            href="#career" 
-            className={`navbar-link ${activeSection === 'career' ? 'active' : ''}`} 
-            onClick={() => scrollToSection('career')}
-          >
-            Career Journey
-          </a>
-          <a 
-            href="#contact" 
-            className={`navbar-link ${activeSection === 'contact' ? 'active' : ''}`} 
-            onClick={() => scrollToSection('contact')}
-          >
-            Contact
+          <a href="https://www.linkedin.com/in/mashrafi-ahnam/" target="_blank" rel="noopener noreferrer" className="social-item" title="LinkedIn">
+            <FaLinkedin />
           </a>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Overlay for mobile */}
+      {isMenuOpen && <div className="nav-overlay" onClick={() => setIsMenuOpen(false)}></div>}
+    </>
   )
 }
 

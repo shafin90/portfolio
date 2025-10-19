@@ -57,6 +57,7 @@ const Contact = () => {
     error: null
   })
 
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -111,6 +112,7 @@ const Contact = () => {
             Have a project in mind? Let's talk about it!
           </p>
         </motion.div>
+
 
         <div className="contact-grid">
           <motion.div 

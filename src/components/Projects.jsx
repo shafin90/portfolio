@@ -133,6 +133,7 @@ const Projects = () => {
           </p>
         </motion.div>
 
+
         <motion.div
           className="project-categories"
           initial={{ opacity: 0, y: 20 }}
